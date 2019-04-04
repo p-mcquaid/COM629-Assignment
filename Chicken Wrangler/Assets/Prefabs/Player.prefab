@@ -275,6 +275,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   agent: {fileID: 195982948731041590}
+  EB: {fileID: 0}
 --- !u!136 &136051356069675552
 CapsuleCollider:
   m_ObjectHideFlags: 1

@@ -11,9 +11,10 @@ public class EnemyBehaivour : MonoBehaviour {
     public GameObject player;
     public float dist_toPlayer = 4.0f;
     public Text text;
-    public bool isClose = false;
-	// Use this for initialization
-	void Start () {
+    public bool isPlayerClose = false;
+    public float dist = 0.0f;
+    // Use this for initialization
+    void Start () {
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
         text = GameObject.FindGameObjectWithTag("UI").GetComponent<Text>();
@@ -21,22 +22,38 @@ public class EnemyBehaivour : MonoBehaviour {
 	
 	// Update is called once per frame
 	void FixedUpdate () {
+        IsClose();
+    }
+
+    public void IsClose()
+    {
         //get the distance between the player and the chicken
-        float dist = Vector3.Distance(transform.position, player.transform.position);
+        dist = Vector3.Distance(transform.position, player.transform.position);
+
         // if distance to player is less than 4.0f, run away
         if (dist < dist_toPlayer)
         {
 
             Vector3 direction_toPlayer = transform.position - player.transform.position;
             text.gameObject.SetActive(true);
-            isClose = true;
+            isPlayerClose = true;
             Vector3 newPos = transform.position + direction_toPlayer;
             agent.SetDestination(newPos);
         }
+        else if (dist >= dist_toPlayer)
+        {
+            Vector3 randDirection = Random.insideUnitSphere * 3;
+            randDirection += this.transform.position;
+            NavMeshHit hit;
+            NavMesh.SamplePosition(randDirection, out hit, 3, 1);
+            Vector3 finalPos = hit.position;
+            agent.SetDestination(finalPos);
+        }
+
         if (dist > dist_toPlayer)
         {
             text.gameObject.SetActive(false);
-            isClose = false;
+            isPlayerClose = false;
         }
     }
 }

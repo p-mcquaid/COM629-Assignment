@@ -14,7 +14,9 @@ public class LevelGenerator : MonoBehaviour {
 
     //has the player already been spawned?
     private bool isPlayerSpawn = false;
-    private bool isChickenSpawn = false;
+    private bool isEnoughChk = false;
+    private int chickenSpawn = 4;
+    //private bool isChickenSpawn = false;
 	// Use this for initialization
 	void Start () {
         //Call Level Gen Method
@@ -37,14 +39,20 @@ public class LevelGenerator : MonoBehaviour {
                     Vector3 pos = new Vector3(i - width / 2.0f, 1.0f, j - height / 2.0f);
                     Instantiate(wall, pos, Quaternion.identity, transform);
                 }
-                else if (!isChickenSpawn)
+                else if (!isEnoughChk && UnityEngine.Random.value > 0.7f)
                 {
-                    Vector3 pos = new Vector3(i - width / 2.0f, 1.25f, j - height / 2.0f);
-                    Instantiate(chicken, pos, Quaternion.identity);
-                    isChickenSpawn = true;
-                    Debug.Log(isPlayerSpawn);
+                    for (int a = 0; a <= chickenSpawn; a++)
+                    {
+                        Vector3 pos = new Vector3(i - UnityEngine.Random.Range(0.0f, width) / 2.0f, 1.25f, j - UnityEngine.Random.Range(0.0f, height) / 2.0f);
+                        Instantiate(chicken, pos, Quaternion.identity);
+                        //chickenSpawn++;
+                        if (a == 4)
+                        {
+                            isEnoughChk = true;
+                        }
+                    } 
                 }
-                else if (!isPlayerSpawn)
+                else if (!isPlayerSpawn && isEnoughChk)
                 {
                     Vector3 pos = new Vector3(i - width / 2.0f, 1.25f, j - height / 2.0f);
                     Instantiate(player, pos, Quaternion.identity);

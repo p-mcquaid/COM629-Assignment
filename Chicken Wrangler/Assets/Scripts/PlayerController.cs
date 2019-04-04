@@ -8,15 +8,22 @@ public class PlayerController : MonoBehaviour {
 
     public Camera cam;
     public NavMeshAgent agent;
+    public GameObject[] chickens = new GameObject[5];
+    
 
-    private EnemyBehaivour EB;
     private bool isMiniGame = false;
     private Touch touch;
 
     void Awake()
     {
         cam = GameObject.FindGameObjectWithTag("Camera").GetComponent<Camera>();
-        EB = GameObject.FindGameObjectWithTag("Chicken").GetComponent<EnemyBehaivour>();
+        for (int i = 0; i < chickens.Length; i++)
+        {
+            chickens = GameObject.FindGameObjectsWithTag("Chicken");
+        }
+        Debug.Log("Chickens.size: " + chickens.Length);
+       
+       
     }
 
     void FixedUpdate()
@@ -45,14 +52,16 @@ public class PlayerController : MonoBehaviour {
                 agent.SetDestination(hit.point);
             }
         }
-        if (EB.isClose)
+        for (int i = 0; i < chickens.Length; i++)
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (chickens[i].GetComponent<EnemyBehaivour>().isClose)
             {
-               
-                isMiniGame = true;
-                Debug.Log("Start Game");
+                if (Input.GetKeyDown(KeyCode.Space))
+                {
 
+                    EB.gameObject.SetActive(false);
+
+                }
             }
         }
         if (isMiniGame)
