@@ -54,15 +54,15 @@ public class PlayerController : MonoBehaviour {
         }
         for (int i = 0; i < chickens.Length; i++)
         {
-            if (chickens[i].GetComponent<EnemyBehaivour>().isClose)
-            {
-                if (Input.GetKeyDown(KeyCode.Space))
-                {
+            //if (chickens[i].GetComponent<EnemyBehaivour>().isClose)
+            //{
+            //    if (Input.GetKeyDown(KeyCode.Space))
+            //    {
 
-                    EB.gameObject.SetActive(false);
+            //        EB.gameObject.SetActive(false);
 
-                }
-            }
+            //    }
+            //}
         }
         if (isMiniGame)
         {

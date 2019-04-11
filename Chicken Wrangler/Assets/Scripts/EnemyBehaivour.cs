@@ -35,7 +35,7 @@ public class EnemyBehaivour : MonoBehaviour {
         {
 
             Vector3 direction_toPlayer = transform.position - player.transform.position;
-            text.gameObject.SetActive(true);
+            //text.gameObject.SetActive(true);
             isPlayerClose = true;
             Vector3 newPos = transform.position + direction_toPlayer;
             agent.SetDestination(newPos);
@@ -52,7 +52,7 @@ public class EnemyBehaivour : MonoBehaviour {
 
         if (dist > dist_toPlayer)
         {
-            text.gameObject.SetActive(false);
+            //text.gameObject.SetActive(false);
             isPlayerClose = false;
         }
     }
