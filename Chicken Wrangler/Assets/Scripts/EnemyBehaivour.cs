@@ -10,18 +10,20 @@ public class EnemyBehaivour : MonoBehaviour {
     //Player GB, to get the players position
     public GameObject player;
     public float dist_toPlayer = 4.0f;
-    public Text text;
     public bool isPlayerClose = false;
     public float dist = 0.0f;
     // Use this for initialization
     void Start () {
+ 
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
-        text = GameObject.FindGameObjectWithTag("UI").GetComponent<Text>();
+
     }
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+   
+
+    // Update is called once per frame
+    void FixedUpdate () {
         IsClose();
     }
 
@@ -35,7 +37,6 @@ public class EnemyBehaivour : MonoBehaviour {
         {
 
             Vector3 direction_toPlayer = transform.position - player.transform.position;
-            //text.gameObject.SetActive(true);
             isPlayerClose = true;
             Vector3 newPos = transform.position + direction_toPlayer;
             agent.SetDestination(newPos);
@@ -52,7 +53,6 @@ public class EnemyBehaivour : MonoBehaviour {
 
         if (dist > dist_toPlayer)
         {
-            //text.gameObject.SetActive(false);
             isPlayerClose = false;
         }
     }

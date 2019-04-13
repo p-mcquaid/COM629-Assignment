@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
+using TMPro;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour {
@@ -9,10 +11,22 @@ public class PlayerController : MonoBehaviour {
     public Camera cam;
     public NavMeshAgent agent;
     public GameObject[] chickens = new GameObject[5];
-    
-
-    private bool isMiniGame = false;
+    public Image lasso_img;
+    public Image power_Bar;
+    public int sign = 1;
+    [SerializeField]
     private Touch touch;
+    [SerializeField]
+    private float dist_toChicken = 4.0f;
+    [SerializeField]
+    private float[] dist = new float[5];
+    [SerializeField]
+    private Vector3 store_Dest;
+    [SerializeField]
+    private float percentage;
+    [SerializeField]
+    private float currentFill;
+
 
     void Awake()
     {
@@ -22,12 +36,32 @@ public class PlayerController : MonoBehaviour {
             chickens = GameObject.FindGameObjectsWithTag("Chicken");
         }
         Debug.Log("Chickens.size: " + chickens.Length);
-       
-       
     }
 
+    private void Start()
+    {
+        for (int i = 0; i < dist.Length; i++)
+        {
+            dist[i] = 0.0f;
+        }
+
+        lasso_img = GameObject.Find("Lasso").GetComponent<Image>();
+        lasso_img.gameObject.SetActive(false);
+
+        power_Bar = GameObject.Find("power_bar").GetComponent<Image>();
+        if (power_Bar != null)
+        {
+            percentage = power_Bar.fillAmount * 100;
+        }
+        power_Bar.gameObject.SetActive(false);
+       
+    }
     void FixedUpdate()
     {
+        GetChickenDist();
+
+
+        #region Movement Controls
         if (Input.touchCount > 0)
         {
             touch = Input.GetTouch(0);
@@ -52,27 +86,68 @@ public class PlayerController : MonoBehaviour {
                 agent.SetDestination(hit.point);
             }
         }
-        for (int i = 0; i < chickens.Length; i++)
-        {
-            //if (chickens[i].GetComponent<EnemyBehaivour>().isClose)
-            //{
-            //    if (Input.GetKeyDown(KeyCode.Space))
-            //    {
+        #endregion
 
-            //        EB.gameObject.SetActive(false);
 
-            //    }
-            //}
-        }
-        if (isMiniGame)
+    }
+
+    public void GetChickenDist()
+    {
+        // get chicken Distances
+        for (int i = 0; i < dist.Length; i++)
         {
-            this.gameObject.SetActive(false);
+            dist[i] = Vector3.Distance(chickens[i].transform.position, this.transform.position);
         }
-        else if (true)
+        // compare distances of chickens to player pos
+        for (int i = 0; i < dist.Length; i++)
         {
-            this.gameObject.SetActive(true);
+            if (dist[i] < dist_toChicken)
+            {
+                Debug.Log("Chicken " + i + ": Distance: " + dist[i]);
+                lasso_img.gameObject.SetActive(true);
+                // if player is close enough and presses space
+                if (Input.GetKey(KeyCode.Space))
+                {
+                    //freezes positions 
+                    for (int j = 0; j < chickens.Length; j++)
+                    {
+                        chickens[j].gameObject.GetComponent<EnemyBehaivour>().enabled = false;
+                    }
+                    // store players postion and stops them from moving by setting dest to where they are
+                    store_Dest = agent.destination;
+                    this.agent.SetDestination(this.transform.position);
+                    //activates power bar
+                    power_Bar.gameObject.SetActive(true);
+                    percentage += sign;
+                    if (percentage >= 100 || percentage <= 0)
+                    {
+                        sign *= -1;
+                        percentage = ((percentage <= 0) ? 0 : 100);
+                    }
+
+                    power_Bar.fillAmount = percentage / 100;
+
+
+                }
+
+            }
+            
+        }
+        // if space is released, reset and deactivate the object
+        if (Input.GetKeyUp(KeyCode.Space))
+        {
+            for (int j = 0; j < chickens.Length; j++)
+            {
+                chickens[j].gameObject.GetComponent<EnemyBehaivour>().enabled = true;
+            }
+            agent.SetDestination(store_Dest);
+            power_Bar.gameObject.SetActive(false);
+            percentage = 100;
+            power_Bar.fillAmount = 1.0f;
         }
     }
+
+ 
 
     #region Alt Control Scheme
     ///
