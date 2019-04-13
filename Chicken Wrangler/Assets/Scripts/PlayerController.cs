@@ -6,7 +6,8 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     public Camera cam;
     public NavMeshAgent agent;
@@ -26,6 +27,8 @@ public class PlayerController : MonoBehaviour {
     private float percentage;
     [SerializeField]
     private float currentFill;
+    [SerializeField]
+    private bool isChick_close = false;
 
 
     void Awake()
@@ -54,7 +57,7 @@ public class PlayerController : MonoBehaviour {
             percentage = power_Bar.fillAmount * 100;
         }
         power_Bar.gameObject.SetActive(false);
-       
+
     }
     void FixedUpdate()
     {
@@ -97,21 +100,19 @@ public class PlayerController : MonoBehaviour {
         for (int i = 0; i < dist.Length; i++)
         {
             dist[i] = Vector3.Distance(chickens[i].transform.position, this.transform.position);
-        }
-        // compare distances of chickens to player pos
-        for (int i = 0; i < dist.Length; i++)
-        {
-            if (dist[i] < dist_toChicken)
+
+            if (dist[i] <= dist_toChicken)
             {
+                isChick_close = true;
                 Debug.Log("Chicken " + i + ": Distance: " + dist[i]);
                 lasso_img.gameObject.SetActive(true);
                 // if player is close enough and presses space
                 if (Input.GetKey(KeyCode.Space))
                 {
                     //freezes positions 
-                    for (int j = 0; j < chickens.Length; j++)
+                    for (int z = 0; z < chickens.Length; z++)
                     {
-                        chickens[j].gameObject.GetComponent<EnemyBehaivour>().enabled = false;
+                        chickens[z].gameObject.GetComponent<EnemyBehaivour>().enabled = false;
                     }
                     // store players postion and stops them from moving by setting dest to where they are
                     store_Dest = agent.destination;
@@ -124,15 +125,21 @@ public class PlayerController : MonoBehaviour {
                         sign *= -1;
                         percentage = ((percentage <= 0) ? 0 : 100);
                     }
-
                     power_Bar.fillAmount = percentage / 100;
-
-
                 }
-
             }
-            
+            else if (dist[i] > dist_toChicken)
+            {
+                isChick_close = false;
+            }
+
         }
+
+        //foreach (GameObject c in chickens)
+        //{
+        //    dist = Vector3.Distance(c.transform.position, this.transform.position)
+        //}
+
         // if space is released, reset and deactivate the object
         if (Input.GetKeyUp(KeyCode.Space))
         {
@@ -147,7 +154,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
- 
+
 
     #region Alt Control Scheme
     ///
