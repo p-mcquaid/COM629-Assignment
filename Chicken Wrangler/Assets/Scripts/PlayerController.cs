@@ -11,14 +11,19 @@ public class PlayerController : MonoBehaviour
 
     public Camera cam;
     public NavMeshAgent agent;
-    public GameObject[] chickens = new GameObject[5];
+    public List<GameObject> chickens = new List<GameObject>();
     public Image lasso_img;
     public Image power_Bar;
+    public Image power_Goal;
+    public Image power_Goal_Range;
+    public Image power_BG;
     public int sign = 1;
+    public bool isLasso = false;
+
     [SerializeField]
     private Touch touch;
     [SerializeField]
-    private float dist_toChicken = 4.0f;
+    private float chicken_Range = 4.0f;
     [SerializeField]
     private float[] dist = new float[5];
     [SerializeField]
@@ -28,21 +33,30 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float currentFill;
     [SerializeField]
+    private float closest_Chick = 100f;
+    [SerializeField]
+    private GameObject near_Chicken = null;
+    [SerializeField]
     private bool isChick_close = false;
+    [SerializeField]
+    private GameObject[] g = new GameObject[5];
 
 
-    void Awake()
-    {
-        cam = GameObject.FindGameObjectWithTag("Camera").GetComponent<Camera>();
-        for (int i = 0; i < chickens.Length; i++)
-        {
-            chickens = GameObject.FindGameObjectsWithTag("Chicken");
-        }
-        Debug.Log("Chickens.size: " + chickens.Length);
-    }
 
     private void Start()
     {
+        cam = GameObject.FindGameObjectWithTag("Camera").GetComponent<Camera>();
+
+        for (int i = 0; i < g.Length; i++)
+        {
+            g = GameObject.FindGameObjectsWithTag("Chicken");
+        }
+        foreach (GameObject c in g)
+        {
+            chickens.Add(c);
+
+        }
+
         for (int i = 0; i < dist.Length; i++)
         {
             dist[i] = 0.0f;
@@ -52,11 +66,21 @@ public class PlayerController : MonoBehaviour
         lasso_img.gameObject.SetActive(false);
 
         power_Bar = GameObject.Find("power_bar").GetComponent<Image>();
-        if (power_Bar != null)
+        power_Goal = GameObject.Find("power_Goal").GetComponent<Image>();
+        power_Goal_Range = GameObject.Find("power_Goal_Range").GetComponent<Image>();
+        power_BG = GameObject.Find("power_BG").GetComponent<Image>();
+
+        if (power_Bar != null && power_Goal != null)
         {
-            percentage = power_Bar.fillAmount * 100;
+            //percentage = power_Bar.fillAmount * 100;
+            power_Goal.fillAmount = Random.Range(0.0f, 1.0f);
+            power_Goal_Range.fillAmount = power_Goal.fillAmount + 0.1f;
+            
         }
         power_Bar.gameObject.SetActive(false);
+        power_Goal.gameObject.SetActive(false);
+        power_Goal_Range.gameObject.SetActive(false);
+        power_BG.gameObject.SetActive(false);
 
     }
     void FixedUpdate()
@@ -96,63 +120,110 @@ public class PlayerController : MonoBehaviour
 
     public void GetChickenDist()
     {
+        // get the closest chicken for comparison purposes
+        while (sign != -2)
+        {
+            for (int i = 0; i < chickens.Count; i++)
+            {
+                float close = Vector3.Distance(chickens[i].transform.position, this.transform.position);
+
+                if (close < closest_Chick)
+                {
+                    near_Chicken = chickens[i];
+                }
+            }
+            
+        }
+            
+        
+
         // get chicken Distances
-        for (int i = 0; i < dist.Length; i++)
+        for (int i = 0; i < chickens.Count; i++)
         {
             dist[i] = Vector3.Distance(chickens[i].transform.position, this.transform.position);
 
-            if (dist[i] <= dist_toChicken)
+
+
+            if (dist[i] <= chicken_Range)
             {
                 isChick_close = true;
-                Debug.Log("Chicken " + i + ": Distance: " + dist[i]);
-                lasso_img.gameObject.SetActive(true);
+                
+                
                 // if player is close enough and presses space
                 if (Input.GetKey(KeyCode.Space))
                 {
+
                     //freezes positions 
-                    for (int z = 0; z < chickens.Length; z++)
+                    for (int j = 0; j < chickens.Count; j++)
                     {
-                        chickens[z].gameObject.GetComponent<EnemyBehaivour>().enabled = false;
+                        chickens[j].GetComponent<EnemyBehaivour>().agent.SetDestination(chickens[j].transform.position);
+                        chickens[j].GetComponent<EnemyBehaivour>().enabled = false;
+
                     }
                     // store players postion and stops them from moving by setting dest to where they are
                     store_Dest = agent.destination;
                     this.agent.SetDestination(this.transform.position);
                     //activates power bar
                     power_Bar.gameObject.SetActive(true);
+                    power_Goal.gameObject.SetActive(true);
+                    power_Goal_Range.gameObject.SetActive(true);
+                    power_BG.gameObject.SetActive(true);
                     percentage += sign;
                     if (percentage >= 100 || percentage <= 0)
                     {
                         sign *= -1;
                         percentage = ((percentage <= 0) ? 0 : 100);
+
                     }
                     power_Bar.fillAmount = percentage / 100;
                 }
             }
-            else if (dist[i] > dist_toChicken)
+            else if (dist[i] > chicken_Range)
             {
                 isChick_close = false;
             }
 
         }
 
-        //foreach (GameObject c in chickens)
-        //{
-        //    dist = Vector3.Distance(c.transform.position, this.transform.position)
-        //}
-
-        // if space is released, reset and deactivate the object
         if (Input.GetKeyUp(KeyCode.Space))
         {
-            for (int j = 0; j < chickens.Length; j++)
+            for (int j = 0; j < chickens.Count; j++)
             {
                 chickens[j].gameObject.GetComponent<EnemyBehaivour>().enabled = true;
             }
+
+            if (power_Bar.fillAmount >= power_Goal.fillAmount && power_Bar.fillAmount <= power_Goal_Range.fillAmount)
+            {
+                Debug.Log("Caught!");
+                power_Goal.fillAmount = Random.Range(0f, 1.0f);
+                power_Goal_Range.fillAmount = power_Goal.fillAmount + 0.1f;
+
+                foreach (GameObject chick in chickens)
+                {
+                    float close = Vector3.Distance(chick.transform.position, this.transform.position);
+                    if (close < closest_Chick)
+                    {
+                        closest_Chick = close;
+                        near_Chicken = chick;
+
+                    }
+                }
+
+            }
             agent.SetDestination(store_Dest);
+
             power_Bar.gameObject.SetActive(false);
+            power_Goal.gameObject.SetActive(false);
+            power_Goal_Range.gameObject.SetActive(false);
+            power_BG.gameObject.SetActive(false);
             percentage = 100;
             power_Bar.fillAmount = 1.0f;
         }
     }
+
+    
+
+
 
 
 

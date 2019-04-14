@@ -469,16 +469,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cam: {fileID: 0}
   agent: {fileID: 195982948731041590}
-  chickens:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  text: {fileID: 0}
+  chickens: []
+  lasso_img: {fileID: 0}
   power_Bar: {fileID: 0}
+  power_Goal: {fileID: 0}
+  power_Goal_Range: {fileID: 0}
+  power_BG: {fileID: 0}
   sign: 1
-  dist_toChicken: 4
+  chicken_Range: 4
   dist:
   - 0
   - 0
@@ -488,6 +486,15 @@ MonoBehaviour:
   store_Dest: {x: 0, y: 0, z: 0}
   percentage: 0
   currentFill: 0
+  closest_Chick: 100
+  near_Chicken: {fileID: 0}
+  isChick_close: 0
+  g:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!54 &54719253799476324
 Rigidbody:
   m_ObjectHideFlags: 0

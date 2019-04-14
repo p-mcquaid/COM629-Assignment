@@ -44,7 +44,8 @@ public class LevelGenerator : MonoBehaviour {
                     for (int a = 0; a <= chickenSpawn; a++)
                     {
                         Vector3 pos = new Vector3(i - UnityEngine.Random.Range(0.0f, width) / 2.0f, 1.25f, j - UnityEngine.Random.Range(0.0f, height) / 2.0f);
-                        Instantiate(chicken, pos, Quaternion.identity);
+                        chicken = (GameObject)Instantiate(chicken, pos, Quaternion.identity);
+                        chicken.name = "Chicken" + a;
                         //chickenSpawn++;
                         if (a == 4)
                         {
@@ -63,4 +64,6 @@ public class LevelGenerator : MonoBehaviour {
             }
         }
     }
+
+
 }
