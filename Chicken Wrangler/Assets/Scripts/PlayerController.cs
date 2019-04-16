@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityStandardAssets.Characters.ThirdPerson;
 using TMPro;
 using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
-
+    public ThirdPersonCharacter character;
     public Camera cam;
     public NavMeshAgent agent;
     public List<GameObject> chickens = new List<GameObject>();
@@ -36,12 +37,22 @@ public class PlayerController : MonoBehaviour
     private GameObject near_Chicken;
     [SerializeField]
     private GameObject[] g = new GameObject[5];
+    [SerializeField]
+    private GameObject first_Pop_Chicken;
+    [SerializeField]
+    private bool isFirstPopped = false;
+    [SerializeField]
+    private Transform pod_Pos;
+
 
     private void Start()
     {
+
+        agent.updateRotation = false;
         near_Chicken = GameObject.FindGameObjectWithTag("Chicken");
         cam = GameObject.FindGameObjectWithTag("Camera").GetComponent<Camera>();
 
+        pod_Pos = GameObject.Find("init_Pod_Pos").GetComponent<Transform>();
 
         for (int i = 0; i < g.Length; i++)
         {
@@ -111,8 +122,16 @@ public class PlayerController : MonoBehaviour
             }
         }
         #endregion
-
-        
+        if (agent.remainingDistance > agent.stoppingDistance)
+        {
+            character.Move(agent.desiredVelocity, false, false);
+        }
+        else
+        {
+            character.Move(Vector3.zero, false, false);
+        }
+       
+       
 
         if (Vector3.Distance(near_Chicken.transform.position, this.transform.position) <= 4.0f)
         {
@@ -235,7 +254,16 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Caught!");
             if (chickens.Contains(near_Chicken))
             {
-                Debug.Log("Chicken match" + near_Chicken);
+                Debug.Log("Pop Chicken Pos: " + near_Chicken.transform.position);
+                //near_Chicken.transform.position = pod_Pos.transform.position;
+                Debug.Log("Pop Chicken Pos: " + near_Chicken.transform.position);
+
+                near_Chicken.GetComponent<EnemyBehaivour>().agent.SetDestination(pod_Pos.transform.position);
+                near_Chicken.GetComponent<EnemyBehaivour>().enabled = false;
+
+                chickens.Remove(near_Chicken);
+
+                
             }
             power_Goal.fillAmount = Random.Range(0f, 1.0f);
             power_Goal_Range.fillAmount = power_Goal.fillAmount + 0.1f;

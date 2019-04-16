@@ -246,13 +246,13 @@
       <HintPath>C:/Program Files/Unity/Hub/Editor/2018.3.12f1/Editor/Data/UnityExtensions/Unity/UnitySpatialTracking/RuntimeEditor/UnityEngine.SpatialTracking.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Editor">
-      <HintPath>C:/Users/cgf15mqp/Desktop/COM629-Assignment/Chicken Wrangler/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
+      <HintPath>C:/Users/cgf15mqp/Desktop/COM629/Chicken Wrangler/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Editor.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.StandardEvents">
-      <HintPath>C:/Users/cgf15mqp/Desktop/COM629-Assignment/Chicken Wrangler/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
+      <HintPath>C:/Users/cgf15mqp/Desktop/COM629/Chicken Wrangler/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.StandardEvents.dll</HintPath>
     </Reference>
     <Reference Include="Unity.Analytics.Tracker">
-      <HintPath>C:/Users/cgf15mqp/Desktop/COM629-Assignment/Chicken Wrangler/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
+      <HintPath>C:/Users/cgf15mqp/Desktop/COM629/Chicken Wrangler/Library/PackageCache/com.unity.analytics@3.2.2/Unity.Analytics.Tracker.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2018.3.12f1\Editor\Data\MonoBleedingEdge\lib\mono\unity\mscorlib.dll</HintPath>
@@ -283,9 +283,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="NavMeshComponentsExamplesEditor.csproj">
+      <Project>{503F1A41-0145-1849-4176-84983361DD40}</Project>
+      <Name>NavMeshComponentsExamplesEditor</Name>
+    </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.Editor.csproj">
       <Project>{3A848AB7-9891-EDDA-D555-BF184C2F81F4}</Project>
       <Name>Unity.TextMeshPro.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponentsEditor.csproj">
+      <Project>{9A2A1A50-E65B-74A8-AF77-B45DF78A7632}</Project>
+      <Name>NavMeshComponentsEditor</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.PackageManagerUI.Editor.csproj">
       <Project>{6877705C-FBD9-0C4F-5AFB-6FB431E5D39D}</Project>
@@ -294,6 +302,14 @@
     <ProjectReference Include="Unity.CollabProxy.Editor.csproj">
       <Project>{C12CEEC6-100C-58A2-DE36-314E4DE5E40B}</Project>
       <Name>Unity.CollabProxy.Editor</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponents.csproj">
+      <Project>{39BB8A60-453F-EEAD-9859-5F71DB02F6D6}</Project>
+      <Name>NavMeshComponents</Name>
+    </ProjectReference>
+    <ProjectReference Include="NavMeshComponentsExamples.csproj">
+      <Project>{5D22C82D-9E0E-9E6E-9966-871E74D84A0C}</Project>
+      <Name>NavMeshComponentsExamples</Name>
     </ProjectReference>
     <ProjectReference Include="Unity.TextMeshPro.csproj">
       <Project>{07A21C90-D344-AE1A-8456-9910C203B41A}</Project>
@@ -305,15 +321,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\NavMesh\NavMeshComponentsGUIUtility.cs" />
-    <Compile Include="Assets\NavMesh\NavMeshLink.cs" />
-    <Compile Include="Assets\NavMesh\NavMeshLinkEditor.cs" />
-    <Compile Include="Assets\NavMesh\NavMeshModifier.cs" />
-    <Compile Include="Assets\NavMesh\NavMeshModifierEditor.cs" />
-    <Compile Include="Assets\NavMesh\NavMeshModifierVolume.cs" />
-    <Compile Include="Assets\NavMesh\NavMeshModifierVolumeEditor.cs" />
-    <Compile Include="Assets\NavMesh\NavMeshSurface.cs" />
-    <Compile Include="Assets\NavMesh\NavMeshSurfaceEditor.cs" />
     <Compile Include="Assets\Prefabs\Chicken\ChickenController.cs" />
     <Compile Include="Assets\Scripts\Billboard.cs" />
     <Compile Include="Assets\Scripts\CameraFollow.cs" />
@@ -322,9 +329,11 @@
     <Compile Include="Assets\Scripts\MainMenu.cs" />
     <Compile Include="Assets\Scripts\PlayerController.cs" />
     <Compile Include="Assets\Scripts\SettingsMenu.cs" />
+    <Compile Include="Assets\Scripts\ThirdPersonCharacter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\Credits.txt" />
+    <None Include="Assets\NavMeshComponents-master\ProjectSettings\ProjectVersion.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Resources\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
