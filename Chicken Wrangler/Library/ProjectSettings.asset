@@ -718,10 +718,10 @@ PlayerSettings:
   facebookXfbml: 0
   facebookFrictionlessRequests: 1
   apiCompatibilityLevel: 2
-  cloudProjectId: 
+  cloudProjectId: 52356492-f792-48ee-b830-92b2d72784b1
   framebufferDepthMemorylessMode: 0
-  projectName: 
-  organizationId: 
+  projectName: Chicken Wrangler
+  organizationId: paul-2483646
   cloudEnabled: 0
   enableNativePlatformBackendsForNewInputSystem: 0
   disableOldInputManagerSupport: 0

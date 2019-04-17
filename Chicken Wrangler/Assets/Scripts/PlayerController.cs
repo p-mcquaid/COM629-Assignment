@@ -194,6 +194,7 @@ public class PlayerController : MonoBehaviour
         {
             GetInputOff();
         }
+       
     }
 
     void UpdateChicken()

@@ -43,7 +43,7 @@ public class AdditionalUI : MonoBehaviour
         {
             Debug.Log("timer"  + timer);
 
-            score_int -= 50;
+            score_int -= 100;
 
             score.text = score_int.ToString();
 
