@@ -249,7 +249,8 @@ MonoBehaviour:
   power_BG: {fileID: 0}
   sign: 1
   shortestDist: Infinity
-  chicken_Range: 4
+  chickenColour: {fileID: 2800000, guid: 7a29c063b60c1b14fa073d67e403c738, type: 3}
+  chicken_Range: 10
   dist:
   - 0
   - 0

@@ -39,6 +39,7 @@ public class LevelGenerator : MonoBehaviour {
                     Vector3 pos = new Vector3(i - width / 2.0f, 1.0f, j - height / 2.0f);
                     Instantiate(wall, pos, Quaternion.identity, transform);
                 }
+                // if there isn't enough chicks, and random value is greater than 0.7, place a chicken
                 else if (!isEnoughChk && UnityEngine.Random.value > 0.7f)
                 {
                     for (int a = 0; a <= chickenSpawn; a++)
@@ -46,13 +47,14 @@ public class LevelGenerator : MonoBehaviour {
                         Vector3 pos = new Vector3(i - UnityEngine.Random.Range(0.0f, width) / 2.0f, 1.25f, j - UnityEngine.Random.Range(0.0f, height) / 2.0f);
                         chicken = (GameObject)Instantiate(chicken, pos, Quaternion.identity);
                         chicken.name = "Chicken" + a;
-                        //chickenSpawn++;
+                        //5 chicks are enough
                         if (a == 4)
                         {
                             isEnoughChk = true;
                         }
                     } 
                 }
+                // is there isn't a player and the chickens have been spawned, spawn a player
                 else if (!isPlayerSpawn && isEnoughChk)
                 {
                     Vector3 pos = new Vector3(i - width / 2.0f, 1.25f, j - height / 2.0f);

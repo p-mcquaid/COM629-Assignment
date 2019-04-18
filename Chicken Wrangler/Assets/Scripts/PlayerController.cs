@@ -20,7 +20,9 @@ public class PlayerController : MonoBehaviour
     public Image power_BG;
     public int sign = 1;
     public float shortestDist = Mathf.Infinity;
-
+    public Texture chickenColour;
+    public GameObject chickenBody;
+    
     [SerializeField]
     private Touch touch;
     [SerializeField]
@@ -40,15 +42,14 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private GameObject first_Pop_Chicken;
     [SerializeField]
-    private bool isFirstPopped = false;
-    [SerializeField]
     private Transform pod_Pos;
 
 
     private void Start()
     {
-
+        // dont update player rotation, that happens in ThirdPersonController
         agent.updateRotation = false;
+        // Set default values for variables
         near_Chicken = GameObject.FindGameObjectWithTag("Chicken");
         cam = GameObject.FindGameObjectWithTag("Camera").GetComponent<Camera>();
 
@@ -68,10 +69,11 @@ public class PlayerController : MonoBehaviour
         {
             dist[i] = 0.0f;
         }
-
+        //Deacrivate lasso images
         lasso_img = GameObject.Find("Lasso").GetComponent<Image>();
         lasso_img.gameObject.SetActive(false);
 
+        //Deactivate power bar images 
         power_Bar = GameObject.Find("power_bar").GetComponent<Image>();
         power_Goal = GameObject.Find("power_Goal").GetComponent<Image>();
         power_Goal_Range = GameObject.Find("power_Goal_Range").GetComponent<Image>();
@@ -88,7 +90,7 @@ public class PlayerController : MonoBehaviour
         power_Goal.gameObject.SetActive(false);
         power_Goal_Range.gameObject.SetActive(false);
         power_BG.gameObject.SetActive(false);
-
+        // Update Chickens
         InvokeRepeating("UpdateChicken", 0f, 0.5f);
 
     }
@@ -122,6 +124,8 @@ public class PlayerController : MonoBehaviour
             }
         }
         #endregion
+        
+        // agent movement controls
         if (agent.remainingDistance > agent.stoppingDistance)
         {
             character.Move(agent.desiredVelocity, false, false);
@@ -132,7 +136,7 @@ public class PlayerController : MonoBehaviour
         }
        
        
-
+        // if close enough to a chicken turn lasso on, if not deactivate
         if (Vector3.Distance(near_Chicken.transform.position, this.transform.position) <= 4.0f)
         {
             lasso_img.gameObject.SetActive(true);
@@ -146,6 +150,7 @@ public class PlayerController : MonoBehaviour
 
     public void GetChickenDist()
     {
+        // Touch controls
         // get chicken Distances
         for (int i = 0; i < chickens.Count; i++)
         {
@@ -188,6 +193,7 @@ public class PlayerController : MonoBehaviour
         
         if (Input.touchCount <= 0)
         {
+            //Deactivate this piece of code to run on PC
             GetInputOff();
         }
         if (Input.GetKeyUp(KeyCode.Space))
@@ -207,6 +213,7 @@ public class PlayerController : MonoBehaviour
             {
                 shortestDist = closeChicken;
                 near_Chicken = chick;
+                //chickenBody =
             }
 
         }
@@ -215,6 +222,7 @@ public class PlayerController : MonoBehaviour
 
     public void GetInput()
     {
+        // if the player is touching the screen
         //freezes positions 
         for (int j = 0; j < chickens.Count; j++)
         {
@@ -245,6 +253,7 @@ public class PlayerController : MonoBehaviour
 
     public void GetInputOff()
     {
+        // if the player isn't touching the screen
         for (int j = 0; j < chickens.Count; j++)
         {
             chickens[j].gameObject.GetComponent<EnemyBehaivour>().enabled = true;
@@ -255,10 +264,8 @@ public class PlayerController : MonoBehaviour
             Debug.Log("Caught!");
             if (chickens.Contains(near_Chicken))
             {
-                Debug.Log("Pop Chicken Pos: " + near_Chicken.transform.position);
                 //near_Chicken.transform.position = pod_Pos.transform.position;
-                Debug.Log("Pop Chicken Pos: " + near_Chicken.transform.position);
-
+                near_Chicken.GetComponent<EnemyBehaivour>().Caught();
                 near_Chicken.GetComponent<EnemyBehaivour>().agent.SetDestination(pod_Pos.transform.position);
                 near_Chicken.GetComponent<EnemyBehaivour>().enabled = false;
 

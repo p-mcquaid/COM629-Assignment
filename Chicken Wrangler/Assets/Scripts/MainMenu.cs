@@ -11,13 +11,18 @@ public class MainMenu : MonoBehaviour
     public AudioSource AudioSource;
     public TextMeshProUGUI money;
     public int m_Money;
+    private int playAd = 0;
     private void Start()
     {
+        // code to try and prevent ads showing every time, doesn't work
+        PlayerPrefs.SetInt("PlayAd", playAd);
+        // get the players money and print it 
         m_Money = PlayerPrefs.GetInt("Money", 0);
         money.text = "Money: " + PlayerPrefs.GetInt("Money", m_Money);
     }
     public void PressButton()
     {
+        // Play the game and show an ad
         ShowAds(); 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
     }
@@ -25,10 +30,15 @@ public class MainMenu : MonoBehaviour
 
     public void ShowAds()
     {
-        if (Advertisement.IsReady("rewardedVideo"))
+
+        if (playAd == 0)
         {
-            var options = new ShowOptions { resultCallback = HandleShowResult };
-            Advertisement.Show("rewardedVideo", options);
+            if (Advertisement.IsReady("rewardedVideo"))
+            {
+                var options = new ShowOptions { resultCallback = HandleShowResult };
+                Advertisement.Show("rewardedVideo", options);
+                PlayerPrefs.SetInt("PlayAd", 1);
+            } 
         }
     }
 

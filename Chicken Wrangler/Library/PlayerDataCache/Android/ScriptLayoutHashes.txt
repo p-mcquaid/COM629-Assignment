@@ -1,6 +1,6 @@
 Android
 PlayerPath?
-C:/Users/cgf15mqp/Desktop/ChickenWrangler/Chicken Wrangler/CW.apk
+C:/Users/cgf15mqp/Desktop/COM629/Chicken Wrangler/CW.apk
 SceneListBegin?
 Assets/Scenes/StartMenu.unity
 Assets/Scenes/MainScene.unity
@@ -107,6 +107,7 @@ e1bbf0ab858085e38fae6b12ebbdcd35 UnityEngine.Timeline.dll:UnityEngine.Timeline.P
 1f53cbc473f31cd3401926bb2a2275f8 NavMeshComponentsExamples.dll:.AgentLinkMover
 71bb6a6b6c8f052f948db64c7dd3ca4f NavMeshComponentsExamples.dll:.ClickToMove
 00274a21279f5cb831ce20f895049e38 Unity.TextMeshPro.dll:TMPro.TMP_SubMeshUI
+e7b2a9c4da960861bb2ea386346077ba Assembly-CSharp.dll:.MaterialHandler
 e6ae40841db498b6e673877ac45ad208 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkAnimator
 71bb6a6b6c8f052f948db64c7dd3ca4f UnityEngine.Networking.dll:UnityEngine.Networking.NetworkBehaviour
 1dcb82730d983b77cec736c6ef19f814 UnityEngine.Networking.dll:UnityEngine.Networking.NetworkDiscovery
@@ -123,7 +124,7 @@ ad9173d3a69d99153f38ed4b62226129 UnityEngine.Networking.dll:UnityEngine.Networki
 5887ef1bc706b22b773d253fd443ceef UnityEngine.Networking.dll:UnityEngine.Networking.NetworkTransformVisualizer
 f2d6f78254ca93fbc5b1ada07c8dcb72 NavMeshComponentsExamples.dll:.FreeCam
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
-f3cccc74b404430a5e117045b99496a3 Assembly-CSharp.dll:.GameOver
+a6154556be8ef6216679e32e347de56f Assembly-CSharp.dll:.GameOver
 8c83877a37a352878cc4a46198cccc35 Assembly-CSharp.dll:.SettingsMenu
 7b23eab0455a7931ce0f49da35f762d1 Assembly-CSharp.dll:.Billboard
 303ad70ce203ad874efe2965d0fbcff9 Unity.Analytics.Tracker.dll:UnityEngine.Analytics.AnalyticsEventTracker
@@ -173,9 +174,9 @@ fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEng
 fb6a1ea36b4f6ef5948d283d93760765 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioRoom
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSoundfieldExtension
 5b0391b7e3d9ea9db6c0a8fbd0ca23f6 UnityEngine.GoogleAudioSpatializer.dll:UnityEngine.Experimental.Audio.Google.GvrAudioSourceExtension
-828445d9c7bdf54f0ec26d81a66c205d Assembly-CSharp.dll:.PlayerController
+f9bf599b885243680964fd01d02d4868 Assembly-CSharp.dll:.PlayerController
 74abb616a7b65b377f11c8a31f2ddea6 NavMeshComponentsExamples.dll:.LocalNavMeshBuilder
-6fef33b1aedaa9e29c90910115384115 Assembly-CSharp.dll:.EnemyBehaivour
+0ab6880e9c9edfaea9cf0f73bbeefc77 Assembly-CSharp.dll:.EnemyBehaivour
 b3715868e5e917a6580be89b42c15ca3 Assembly-CSharp.dll:.ChickenController
 a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 5fc094978ce3e3591a7500ed380d854a Unity.Analytics.DataPrivacy.dll:UnityEngine.Analytics.DataPrivacyButton
@@ -183,12 +184,11 @@ a4f0a4f62100f1a4fb5cbe0e00dde83f Unity.TextMeshPro.dll:TMPro.TextMeshProUGUI
 d251bf88db6c95a6b1aa0b69298da9ef UnityEngine.SpatialTracking.dll:UnityEngine.SpatialTracking.TrackedPoseDriver
 0e57a341531c2c0a72d6b366fd018e5b NavMeshComponentsExamples.dll:.NavMeshPrefabInstance
 d791aa6007fa3640be1164ea75bb087d Unity.TextMeshPro.dll:TMPro.TMP_StyleSheet
+71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BGMusic
 c6666661329916e218bee7f5e79e60f5 Unity.TextMeshPro.dll:TMPro.TextMeshPro
 3165968ba45c74472d279ba04455fccb Unity.TextMeshPro.dll:TMPro.TMP_ColorGradient
+7330dc550a52f7f95c71717411359c18 Assembly-CSharp.dll:.PauseMenu
 c05d535bfcb6e005cb05d18d0df0e685 NavMeshComponentsExamples.dll:.RandomWalk
 8649814970b42d345b89944b862453cc Unity.TextMeshPro.dll:TMPro.TMP_SubMesh
 142ac660d938c77d06a40116647495c6 NavMeshComponentsExamples.dll:.SpawnPrefabOnKeyDown
 b2eff50eb9f6630e6a432a66f75209b6 Assembly-CSharp.dll:.MainMenu
-71bb6a6b6c8f052f948db64c7dd3ca4f Assembly-CSharp.dll:.BGMusic
-e7b2a9c4da960861bb2ea386346077ba Assembly-CSharp.dll:.MaterialHandler
-7330dc550a52f7f95c71717411359c18 Assembly-CSharp.dll:.PauseMenu

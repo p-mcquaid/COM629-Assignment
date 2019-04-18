@@ -13,12 +13,29 @@ public class EnemyBehaivour : MonoBehaviour {
     public bool isPlayerClose = false;
     public bool isFreeze = false;
     public float dist = 0.0f;
+    public GameObject child;
+    [SerializeField]
+    Material[] materialsArray;
+    Material material;
+
+    
+    public Texture caughtTexture;
+
+
     // Use this for initialization
     void Start () {
- 
+        
+        //set inital values for agent, player and get the chicken body GO from each chicken in the scene
         agent = GetComponent<NavMeshAgent>();
         player = GameObject.FindGameObjectWithTag("Player");
+        foreach (Transform comp in transform)
+        {
+            if (comp.name == "ChickenBody")
+            {
+                child = comp.gameObject;
+            }
 
+        }
     }
 
    
@@ -26,10 +43,22 @@ public class EnemyBehaivour : MonoBehaviour {
     // Update is called once per frame
     void FixedUpdate () {
         IsClose();
+        
+    }
+
+    public void Caught()
+    {
+        //children.Add(GetComponentInChildren<GameObject>());
+        //change colour of chicken after being caught
+        child.GetComponent<Renderer>().material.mainTexture = caughtTexture;
+       
     }
 
     public void IsClose()
     {
+        //code for when the chickens move about on their own
+        
+        //if they don't have to be still
         if (!isFreeze)
         {
             //get the distance between the player and the chicken
@@ -44,6 +73,7 @@ public class EnemyBehaivour : MonoBehaviour {
                 Vector3 newPos = transform.position + direction_toPlayer;
                 agent.SetDestination(newPos);
             }
+            // else walk around the scene
             else if (dist >= dist_toPlayer)
             {
                 Vector3 randDirection = Random.insideUnitSphere * 3;
@@ -56,6 +86,7 @@ public class EnemyBehaivour : MonoBehaviour {
 
             if (dist > dist_toPlayer)
             {
+                //set player close to false when not close
                 isPlayerClose = false;
             }
         }
